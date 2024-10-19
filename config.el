@@ -79,3 +79,8 @@
       :i "M-9" "]"
       :i "M-S-8" "{"
       :i "M-S-9" "}")
+
+(setq display-line-numbers-type 'relative)
+
+(when (eq system-type 'darwin) ; Check if you're on macOS
+  (setq locate-command "mdfind"))
