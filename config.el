@@ -74,13 +74,25 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+;;
+;; Global keybindings for `[]` and `{}`
+;; (map! :i "M-8" (lambda () (interactive) (insert "["))
+;;       :i "M-9" (lambda () (interactive) (insert "]"))
+;;       :i "S-M-8" (lambda () (interactive) (insert "{"))
+;;       :i "S-M-9" (lambda () (interactive) (insert "}")))
 
-(map! :i "M-8" "["
-      :i "M-9" "]"
-      :i "M-S-8" "{"
-      :i "M-S-9" "}")
+(setq mac-option-key-is-meta nil)
+(setq mac-command-key-is-meta t)
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier nil)
+
+;; Ensure the bindings also apply in c-mode
+;; (after! cc-mode
+;;   (map! :map c-mode-map
+;;         :i "M-8" (lambda () (interactive) (insert "["))
+;;         :i "M-9" (lambda () (interactive) (insert "]"))
+;;         :i "S-M-8" (lambda () (interactive) (insert "{"))
+;;         :i "S-M-9" (lambda () (interactive) (insert "}"))))
 
 (setq display-line-numbers-type 'relative)
-
-(when (eq system-type 'darwin) ; Check if you're on macOS
-  (setq locate-command "mdfind"))
+(setq doc-view-resolution 600) ; non-blurry doc-view PDFs
