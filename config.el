@@ -96,3 +96,8 @@
 
 (setq display-line-numbers-type 'relative)
 (setq doc-view-resolution 600) ; non-blurry doc-view PDFs
+
+(after! consult
+  (consult-customize
+   consult-ripgrep
+   :preview-key nil))
