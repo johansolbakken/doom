@@ -21,8 +21,7 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+(setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 12 :weight 'semi-light))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -32,7 +31,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'catppuccin)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -101,3 +100,46 @@
   (consult-customize
    consult-ripgrep
    :preview-key nil))
+
+;;; config.el --- Your Doom Emacs Configuration -*- lexical-binding: t; -*-
+
+;; LaTeX Configuration
+(after! latex
+  ;; Use latexmk for automatic compilation
+  (setq TeX-command-default "LatexMk")
+
+  ;; Use PDF Tools as the viewer
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+        TeX-source-correlate-method 'synctex
+        TeX-source-correlate-mode t)
+
+  ;; Enable synctex correlation so that inverse and forward search works
+  ;; (You can jump between PDF and TeX source)
+  (setq TeX-source-correlate-start-server t)
+
+  ;; Configure company backends for better completion (if using Company)
+  (set-company-backend! 'latex-mode '(company-auctex company-yasnippet company-dabbrev))
+
+  ;; Enable RefTeX for bibliographies and cross-references
+  (add-hook 'LaTeX-mode-hook #'reftex-mode)
+  (setq reftex-plug-into-AUCTeX t)
+
+  ;; Automatically insert closing environments, math mode delimiters, etc.
+  ;; If you have +cdlatex enabled in init.el, cdlatex-mode is already active,
+  ;; but if not, uncomment the following line:
+  ;; (add-hook 'LaTeX-mode-hook #'cdlatex-mode)
+
+  ;; Use visual-line-mode for soft wrapping, which is often nicer for writing
+  (add-hook 'LaTeX-mode-hook #'visual-line-mode)
+
+  ;; Spell checking in LaTeX buffers (use `ispell` or `aspell` installed)
+  (add-hook 'LaTeX-mode-hook #'flyspell-mode)
+)
+;; End LaTeX Configuration
+
+
+;; Front Page Configuration
+(setq +doom-dashboard-banner-file (expand-file-name "~/.config/doom/images/penger.png"))
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; End Front Page Configuration
