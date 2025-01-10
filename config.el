@@ -143,3 +143,8 @@
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; End Front Page Configuration
+
+(after! org
+  (setq org-file-apps
+        '((auto-mode . emacs)
+          ("\\.pdf\\'" . (lambda (file link) (find-file file))))))
