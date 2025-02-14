@@ -148,3 +148,8 @@
   (setq org-file-apps
         '((auto-mode . emacs)
           ("\\.pdf\\'" . (lambda (file link) (find-file file))))))
+
+(map! :leader
+      :desc "Select frame by name" "f s" #'select-frame-by-name
+      :desc "Set frame name"       "f r" #'set-frame-name
+      :desc "Make a new frame"     "f N" #'make-frame)
